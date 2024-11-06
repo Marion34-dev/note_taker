@@ -10,13 +10,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    notesViewModel: NotesViewModel = viewModel()
+) {
+    val notesUIState by notesViewModel.uiState.collectAsState()
     Column(
         Modifier
             .fillMaxSize()
@@ -37,14 +43,8 @@ fun HomeScreen() {
                 )
             }
         }
-        NoteCard("lol lmao")
-        NoteCard("note 2")
-        NoteCard("cheese")
-        NoteCard("create a list lol")
-        NoteCard("it")
-        NoteCard("i think???")
-        NoteCard("out of jokes")
-        NoteCard("eh")
+
+       notesUIState.notes.forEach{NoteCard(it.title)}
 
     }
 }
