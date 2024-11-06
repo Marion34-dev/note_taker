@@ -17,10 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-@Preview(showBackground = true)
+
 @Composable
 fun HomeScreen(
-    notesViewModel: NotesViewModel = viewModel()
+    notesViewModel: NotesViewModel = viewModel(),
+    navRoute: () -> Unit
 ) {
     val notesUIState by notesViewModel.uiState.collectAsState()
     Column(
@@ -36,16 +37,14 @@ fun HomeScreen(
                 "NotePal"
             )
             Button(
-                onClick = {}
+                onClick = navRoute
             ) {
                 Text(
                     "Add Note"
                 )
             }
         }
-
        notesUIState.notes.forEach{NoteCard(it.title)}
-
     }
 }
 

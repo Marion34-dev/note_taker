@@ -5,12 +5,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class NotesViewModel: ViewModel() {
+class NotesViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(NotesUIState())
     public val uiState: StateFlow<NotesUIState> = _uiState.asStateFlow()
-    fun getAllNotes(): List<Note> {
-        return _uiState.value.notes
-    }
+
 }
 
 data class NotesUIState(
