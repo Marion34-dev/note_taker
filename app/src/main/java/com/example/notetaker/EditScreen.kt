@@ -27,11 +27,11 @@ import androidx.compose.runtime.mutableStateOf
 fun EditScreen(
     notesViewModel: NotesViewModel = viewModel(),
     navRoute: () -> Unit,
-    id: Int?
+    id: Int? = null
 ) {
     val notesUIState by notesViewModel.uiState.collectAsState()
     val titleValue = rememberSaveable {
-        if (id != null) mutableStateOf(notesUIState.notes[id].title) else mutableStateOf("")
+       if (id != null) mutableStateOf(notesUIState.notes[id].title) else mutableStateOf("")
     }
     val contentValue = rememberSaveable {
         if (id != null) mutableStateOf(notesUIState.notes[id].content) else mutableStateOf("")
