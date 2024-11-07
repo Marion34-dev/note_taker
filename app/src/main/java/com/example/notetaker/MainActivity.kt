@@ -42,11 +42,12 @@ fun App() {
     NavHost(navController = navController, startDestination = "home") {
 
         composable(route = "home") {
-            HomeScreen(navRoute = { navController.navigate("edit") })
+            HomeScreen(navController= navController)
         }
 
-        composable(route = "edit") {
-            EditScreen(navRoute = { navController.navigate("home") })
+        composable(route = "edit/{id}") {
+            val id = it.arguments?.getString("id")?.toInt()
+            EditScreen(navRoute = { navController.navigate("home") }, id=id)
         }
     }
 }

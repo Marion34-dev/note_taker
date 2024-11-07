@@ -1,6 +1,7 @@
 package com.example.notetaker
 
 import android.graphics.fonts.FontStyle
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,13 +22,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
     notesViewModel: NotesViewModel = viewModel(),
-    navRoute: () -> Unit
+    navController: NavController
 ) {
     val notesUIState by notesViewModel.uiState.collectAsState()
     Column(
@@ -46,7 +47,7 @@ fun HomeScreen(
                 fontSize = 30.sp
             )
             Button(
-                onClick = navRoute
+                onClick = { navController.navigate("edit") }
             ) {
                 Text(
                     "Add Note"
@@ -54,18 +55,20 @@ fun HomeScreen(
             }
         }
         Spacer(Modifier.padding(bottom = 32.dp))
-       notesUIState.notes.forEach{NoteCard(it.title)}
+       notesUIState.notes.forEachIndexed{index, note ->  NoteCard(note.title, index, navController)}
     }
 }
 
 @Composable
 fun NoteCard(
-    title: String
+    title: String,
+    id: Int,
+    navController: NavController
 ) {
     Box(modifier = Modifier
         .padding(16.dp)
-        .fillMaxWidth(),
-
+        .fillMaxWidth()
+        .clickable(enabled = true, onClick = {navController.navigate("edit/$id")})
         ) {
     Text(title)
     }
