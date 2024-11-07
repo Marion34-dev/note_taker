@@ -1,5 +1,6 @@
 package com.example.notetaker
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,11 +15,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import androidx.room.Room
+import com.example.notetaker.db.NotesDb
 import com.example.notetaker.ui.theme.NoteTakerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             NoteTakerTheme {
@@ -32,11 +36,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun App() {
     // We won't use this `navController` for now,
     // but it's needed to setup the `NavHost`.
+
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "home") {

@@ -1,6 +1,5 @@
 package com.example.notetaker
 
-import android.graphics.fonts.FontStyle
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -55,7 +53,10 @@ fun HomeScreen(
             }
         }
         Spacer(Modifier.padding(bottom = 32.dp))
-       notesUIState.notes.forEachIndexed{index, note ->  NoteCard(note.title, index, navController)}
+        if (notesUIState.notes.isNotEmpty()) {
+            notesUIState.notes.forEachIndexed{index, note ->  NoteCard(note.title, index, navController)}
+        }
+
     }
 }
 

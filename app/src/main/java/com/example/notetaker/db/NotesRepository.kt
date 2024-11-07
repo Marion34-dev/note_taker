@@ -1,24 +1,24 @@
 package com.example.notetaker.db
 
-class NotesRepository (private val db: NotesDb) {
-    private val noteDao = db.notesDao()
-    suspend fun insertNote(note: Note) {
-        noteDao.insert(note)
+class NotesRepository () {
+    val db = DatabaseService()
+    fun insertNote(note: Note) {
+        db.getInstance().notesDao().insert(note)
     }
 
-    suspend fun getAllNotes(): List<Note> {
-        return noteDao.getAllNotes()
+    fun getAllNotes(): List<Note> {
+        return db.getInstance().notesDao().getAllNotes()
     }
 
-    suspend fun getNoteById(id: Int): Note? {
-        return noteDao.getNoteById(id)
+    fun getNoteById(id: Int): Note? {
+        return db.getInstance().notesDao().getNoteById(id)
     }
 
-    suspend fun deleteById(id:Int) {
-        return noteDao.deleteById(id)
+    fun deleteById(id:Int) {
+        db.getInstance().notesDao().deleteById(id)
     }
 
-    suspend fun updateById(id:Int, title:String, content:String) {
-        return noteDao.updateById(id, noteContent=content, noteTitle = title)
+    fun updateById(id:Int, title:String, content:String) {
+        return db.getInstance().notesDao().updateById(id, noteContent=content, noteTitle = title)
     }
 }
